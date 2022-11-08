@@ -6,16 +6,11 @@
 /*   By: ccasadem <ccasadem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 19:38:07 by ccasadem          #+#    #+#             */
-/*   Updated: 2022/11/05 19:46:15 by carles           ###   ########.fr       */
+/*   Updated: 2022/11/08 20:44:08 by ccasadem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-char	ft_interchange(unsigned int num, char c)
-{
-	return (c += num);
-}
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {

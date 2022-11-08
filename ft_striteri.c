@@ -6,16 +6,11 @@
 /*   By: ccasadem <ccasadem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 19:50:06 by ccasadem          #+#    #+#             */
-/*   Updated: 2022/11/05 20:11:58 by carles           ###   ########.fr       */
+/*   Updated: 2022/11/08 20:34:09 by ccasadem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-void	ft_printar(unsigned int n, char *c)
-{
-	c = c + n;
-}
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {

@@ -6,49 +6,22 @@
 /*   By: ccasadem <ccasadem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 12:09:21 by ccasadem          #+#    #+#             */
-/*   Updated: 2022/11/02 09:57:27 by carles           ###   ########.fr       */
+/*   Updated: 2022/11/08 14:37:36 by ccasadem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s)
-	{
-		if (*s == c)
-		{
-			return ((char *)s);
-		}
-		s++;
-	}
-	return (NULL);
-}
-
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*ptrs;
-	char	*ptre;
-	char	*ptrm;
+	size_t	i;
 
-	while (ft_strchr(set, *s1))
-	{
+	if (!s1 || !set)
+		return (0);
+	while (*s1 && ft_strchr(set, *s1))
 		s1++;
-	}
-	ptrs = (char *)s1;
-	while (*s1)
-	{
-		s1++;
-	}
-	s1--;
-	while (ft_strchr(set, *s1))
-	{
-		s1--;
-	}
-	ptre = (char *)s1;
-	ptrm = (char *)malloc(ptre - ptrs + 2);
-	if (!ptrm)
-		return (NULL);
-	ft_strlcpy(ptrm, ptrs, ptre - ptrs + 2);
-	return (ptrm);
+	i = ft_strlen(s1);
+	while (i && ft_strchr(set, s1[i]))
+		i--;
+	return (ft_substr(s1, 0, i + 1));
 }

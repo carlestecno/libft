@@ -6,7 +6,7 @@
 /*   By: ccasadem <ccasadem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 14:38:46 by ccasadem          #+#    #+#             */
-/*   Updated: 2022/11/01 10:11:14 by carles           ###   ########.fr       */
+/*   Updated: 2022/11/08 14:24:54 by ccasadem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,27 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*ptr;
-	char	*ptrmall;
-	char	*ptr2;
+	size_t	i;
+	size_t	j;
+	size_t	len_s;
+	char	*subs;
 
-	ptr = (char *)s;
-	if (start >= strlen(s))
-	{
-		ptrmall = (char *)malloc(1);
-		if (!ptrmall)
-			return (0);
-		ptrmall = 0;
-	}
-	ptrmall = (char *)malloc(strlen(s) - start + 1);
-	ptr2 = ptrmall;
-	if (!ptrmall)
+	if (!s)
 		return (0);
-	ptr += start;
-	ft_strlcpy(ptrmall, ptr, len + 1);
-	ptrmall += len;
-	*ptrmall = 0;
-	return (ptr2);
+	len_s = ft_strlen(s);
+	if (len > len_s - start)
+		len = len_s - start;
+	if (start >= len_s)
+		len = 0;
+	subs = (char *)malloc(len + 1);
+	if (subs == NULL)
+		return (NULL);
+	i = start;
+	j = 0;
+	while (i < len_s && j < len)
+	{
+		subs[j++] = s[i++];
+	}
+	subs[j] = '\0';
+	return (subs);
 }
-// int main()
-// {
-//     printf("El valor original es de: %s", ft_substr("Patata", 5, 1 ));
-// }

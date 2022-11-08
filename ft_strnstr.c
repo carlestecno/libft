@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccasadem <ccasadem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/05 20:31:59 by ccasadem          #+#    #+#             */
-/*   Updated: 2022/11/08 20:37:14 by ccasadem         ###   ########.fr       */
+/*   Created: 2022/11/08 18:29:48 by ccasadem          #+#    #+#             */
+/*   Updated: 2022/11/08 18:29:52 by ccasadem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+char	*ft_strnstr(const char *s1, const char *s2, size_t len)
 {
-	if (s != NULL)
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	if (s2[0] == '\0')
+		return ((char *)s1);
+	while (s1[i] != '\0')
 	{
-		write(fd, s, strlen(s));
-		write(fd, "\n", 1);
+		j = 0;
+		while (s1[i + j] == s2[j] && i + j < len)
+		{
+			j++;
+			if (s2[j] == '\0')
+				return ((char *)s1 + i);
+		}
+		i++;
 	}
+	return (0);
 }

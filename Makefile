@@ -6,7 +6,7 @@
 #    By: ccasadem <ccasadem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 10:27:05 by ccasadem          #+#    #+#              #
-#    Updated: 2022/11/05 20:50:34 by carles           ###   ########.fr        #
+#    Updated: 2022/11/08 20:11:36 by ccasadem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,10 +40,12 @@ SRCS =		ft_bzero.c \
 			ft_putstr_fd.c \
 			ft_putendl_fd.c \
 			ft_putnbr_fd.c \
+			ft_strncmp.c \
+			ft_strlcat.c \
+			ft_memcmp.c \
+			ft_strnstr.c \
 
 OBJS =		${SRCS:.c=.o}
-DEPS =		${SRC:.c=.d}
-
 HEADER =	libft.h
 
 NAME =		libft.a
@@ -54,18 +56,16 @@ RM =		rm -f
 
 CFLAGS =	-Wall -Wextra -Werror
 
-.%.o : %.c
+%.o : 		%.c ${HEADER} Makefile
 			${CC} ${CFLAGS} -c $< -o$@
 
 all :		${NAME}
 
--include $(DEPS)
-${NAME} :	${OBJS} ${HEADER}
-			ar rcs ${NAME} ${OBJS}
+${NAME} :	${OBJS} 
+			ar -rcs ${NAME} ${OBJS}
 
 clean :
-			${RM} ${OBJS} 
-			${RM} ${DEPS}
+			${RM} ${OBJS}
 
 fclean :	clean
 			${RM} ${NAME}

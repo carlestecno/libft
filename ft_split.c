@@ -1,98 +1,92 @@
-#include "libft.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccasadem <ccasadem@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/08 14:45:37 by ccasadem          #+#    #+#             */
+/*   Updated: 2022/11/08 16:17:28 by ccasadem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char	*ft_strncpy(char *dest, const char *src, size_t n)
+#include "libft.h"
+
+static int	ft_count_words(char const *s, char c)
 {
-	size_t	i;
+	int	i;
+	int	j;
+	int	w;
 
 	i = 0;
-	while (n--)
+	w = 0;
+	j = 0;
+	while (s[i])
 	{
-		dest[i] = src[i];
+		if (s[i] != c && j == 0)
+		{
+			j = 1;
+			w++;
+		}
+		else if (s[i] == c)
+		{
+			j = 0;
+		}
 		i++;
 	}
-	dest[i] = '\0';
-	return (dest);
+	return (w);
 }
 
-char	*ft_strchr_meu(const char *s, int c)
+static void	ft_freemalloc(char **words, int w)
 {
-	while (*s)
+	int	i;
+
+	i = 0;
+	while (i <= w)
 	{
-		if (*s == c)
-		{
-			break ;
-		}
-		s++;
+		free(words[i]);
+		i++;
 	}
-	return ((char *)s);
+	free(words);
 }
 
-size_t	ft_countwords(const char *str, char c)
+static int	ft_wordlen(char const *s, char c)
 {
-	size_t	count;
-	int		flag;
+	int	i;
 
-	flag = 0;
-	count = 0;
-	while (*str)
+	i = 0;
+	while (s[i] != '\0' && s[i] != c)
 	{
-		if (*str == c)
-		{
-			flag = 0;
-		}
-		else if (*str != c && flag == 0)
-		{
-			flag = 1;
-			count++;
-		}
-		str++;
+		i++;
 	}
-	return (count);
+	return (i);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	int			j;
-	const char	*ps;
-	char		**ptr;
+	int		w;
+	char	**words;
 
-	ptr = 0;
-	ps = s;
-	j = 0;
-	if (*s == 0)
-	{
-		ptr = (char **) malloc(1 * sizeof(char *));
-		ptr[0] = (char *) malloc(1);
-		ptr[0] = '\0';
-		ptr[1] = (char *) malloc(1);
-		ptr[1] = 0;
-		return (ptr);
-	}
-	ptr = (char **) malloc(ft_countwords(s, c) * sizeof(char *));
-	if (!ptr)
+	words = (char **)malloc((ft_count_words(s, c) + 1) * sizeof(char *));
+	if (words == NULL)
 		return (NULL);
-	while (*ps)
+	w = 0;
+	while (*s != '\0')
 	{
-		if (*ps != c)
+		while (*s != '\0' && *s == c)
+			s++;
+		if (*s == '\0')
+			break ;
+		words[w] = (char *) malloc((ft_wordlen(s, c) + 1) * sizeof(char));
+		if (words[w] == NULL)
 		{
-			s = ps;
-			ps = ft_strchr_meu(s, c);
-			ptr[j] = (char *) malloc(ps - s + 1);
-			ft_strncpy(ptr[j], s, ps - s);
-			j++;
+			ft_freemalloc(words, w);
+			return (NULL);
 		}
-		if (*ps == 0)
-			return (ptr);
-		ps++;
+		ft_strlcpy(words[w], s, ft_wordlen(s, c) + 1);
+		s = s + ft_wordlen(s, c);
+		w++;
 	}
-	return (ptr);
+	words[w] = 0;
+	return (words);
 }
-
-// int main()
-// {
-//     printf("sizeofint:%i\n", sizeof(double));
-// 	ft_split("abc cdd bab baba  za  z a ", ' ');
-// }

@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccasadem <ccasadem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/05 20:31:59 by ccasadem          #+#    #+#             */
-/*   Updated: 2022/11/08 20:37:14 by ccasadem         ###   ########.fr       */
+/*   Created: 2022/11/08 16:28:43 by ccasadem          #+#    #+#             */
+/*   Updated: 2022/11/08 16:28:45 by ccasadem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	if (s != NULL)
+	size_t	i;
+	size_t	j;
+	size_t	dlen;
+	size_t	slen;
+
+	dlen = ft_strlen(dst);
+	slen = ft_strlen(src);
+	if (dstsize == 0 || dstsize <= dlen)
+		return (slen + dstsize);
+	i = 0;
+	j = dlen;
+	while (i < dstsize - dlen - 1 && src[i] != '\0')
 	{
-		write(fd, s, strlen(s));
-		write(fd, "\n", 1);
+		dst[j] = src[i];
+		i++;
+		j++;
 	}
+	dst[j] = '\0';
+	return (dlen + slen);
 }
