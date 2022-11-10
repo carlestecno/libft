@@ -57,7 +57,7 @@ RM =		rm -f
 CFLAGS =	-Wall -Wextra -Werror
 
 %.o : 		%.c ${HEADER} Makefile
-			${CC} ${CFLAGS} -c $< -o$@
+			${CC} ${CFLAGS} -c $< -o $@
 
 all :		${NAME}
 
